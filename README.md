@@ -7,6 +7,7 @@ Usage
 =====
 
 ### Terminal 1
+    $ cp config.json{.dist,}; cp urls.json{.dist,}
     $ ./app.js
     Server listening on localhost:8090
     { paste: 'http://www.pastebin.com',
