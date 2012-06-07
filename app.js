@@ -47,4 +47,6 @@ http.createServer(function (req, res) {
   // Server running
   console.log('Server listening on %s:%d', config.host, config.port);
   console.dir(urls);
+  if (config.gid) process.setgid(config.gid);
+  if (config.uid) process.setuid(config.uid);
 });
