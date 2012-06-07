@@ -31,7 +31,7 @@ Config
 
 There are 2 config files.  The first is `config.json`, and in there you define the host
 and port the server should listen on, and the URLs json file to use.  You can also include
-a uid/gid the process should run as after binding to the port The second is `urls.json`, and
+a uid/gid the process should run as after binding to the port. The second is `urls.json`, and
 this is key-value file of path to URL.
 
 ### config.json
