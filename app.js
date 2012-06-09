@@ -29,7 +29,7 @@ try {
 
 // Create the server
 http.createServer(function (req, res) {
-  console.log('Request received %s', req.url);
+  console.log('[%s] request received from %s for %s', Date(), req.connection.remoteAddress, req.url);
   // Grab the request and find the url
   var url_key = req.url.substr(1),
       location = urls[url_key] || null;
