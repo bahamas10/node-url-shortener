@@ -4,11 +4,11 @@ url-shortener
 Spawn up a simple webserver to act as a URL shortener
 
 Usage
-=====
+-----
 
 ### Terminal 1
     $ cp config.json{.dist,}; cp urls.json{.dist,}
-    $ ./app.js
+    $ ./server.js
     Server listening on localhost:8090
     { paste: 'http://www.pastebin.com',
       github: 'https://github.com' }
@@ -27,7 +27,7 @@ Usage
     Connection: keep-alive
 
 Config
-======
+------
 
 There are 2 config files.  The first is `config.json`, and in there you define the host
 and port the server should listen on, and the URLs json file to use.  You can also include
@@ -54,6 +54,6 @@ this is key-value file of path to URL.
 ```
 
 License
-=======
+-------
 
 MIT Licensed
