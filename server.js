@@ -36,7 +36,7 @@ http.createServer(function (req, res) {
 
   if (location) {
     // Redirect
-    res.writeHead(302, {'Location': location});
+    res.writeHead(301, {'Location': location});
   } else {
     // Not found
     res.writeHead(200, {'Content-Type': 'application/json'});
