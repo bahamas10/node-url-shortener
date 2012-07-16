@@ -22,7 +22,7 @@ Usage
       "github": "https://github.com"
     }
     $ curl -I localhost:8090/paste
-    HTTP/1.1 302 Moved Temporarily
+    HTTP/1.1 301 Moved Permanently
     Location: http://www.pastebin.com
     Connection: keep-alive
 
