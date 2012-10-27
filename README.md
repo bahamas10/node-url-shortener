@@ -39,7 +39,7 @@ this is key-value file of path to URL.
 {
   "host": "localhost",
   "port": 8090,
-  "urls": "urls.json",
+  "urls": "./urls.json",
   "gid": null,
   "uid": null
 }

@@ -1,0 +1,26 @@
+{
+  "name": "url-shortener",
+  "description": "Spawn up a simple webserver to act as a URL shortener ",
+  "version": "0.0.0",
+  "author": "Dave Eddy <dave@daveeddy.com> (http://www.daveeddy.com)",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bahamas10/node-url-shortener.git"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "bin": {
+    "url-shortener": "./server.js"
+  },
+  "preferGlobal": true,
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "keywords": [
+    "url",
+    "shortener"
+  ]
+}

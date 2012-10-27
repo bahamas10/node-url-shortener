@@ -7,36 +7,52 @@
  */
 
 // Modules and constants
-var http = require('http'),
-    fs = require('fs'),
-    config_file = 'config.json';
+var http = require('http');
+var fs = require('fs');
+var config_file = './config.json';
 
 // Try to load the config file
 try {
-  var config = JSON.parse(fs.readFileSync(config_file, 'ascii'));
+  var config = require(config_file);
 } catch (e) {
-  console.error('Config file %s not found! copy from %s.dist', config_file, config_file);
+  console.error('Error: file %s not found or unreadable! copy from %s.dist',
+      config_file, config_file);
   process.exit(1);
 }
 
 // Try to load the URLs file
 try {
-  var urls = JSON.parse(fs.readFileSync(config.urls, 'ascii'));
+  var urls = require(config.urls);
 } catch (e) {
-  console.error('URLs file %s not found! copy from %s', config.urls, 'urls.json.dist');
+  console.error('Error: URLs file %s not found or unreadable! copy from %s',
+      config.urls, 'urls.json.dist');
   process.exit(2);
 }
 
 // Create the server
 http.createServer(function (req, res) {
-  console.log('[%s] request received from %s for %s', Date(), req.connection.remoteAddress, req.url);
+  // Decorate
+  req.received_date = new Date();
+
+  // log when a response is a set (to get code and everything)
+  var res_end = res.end;
+  res.end = function() {
+    var delta = new Date() - req.received_date;
+    console.log('[%s] %s %s %s %s (%dms)',
+        new Date().toJSON(), req.connection.remoteAddress, req.method,
+        res.statusCode, req.url, delta);
+
+    // Now call the original
+    res_end.apply(res, arguments);
+  };
+
   // Grab the request and find the url
-  var url_key = req.url.substr(1),
-      location = urls[url_key] || null;
+  var url_key = req.url.substr(1);
+  var location = urls[url_key] || null;
 
   if (location) {
     // Redirect
-    res.writeHead(301, {'Location': location});
+    res.writeHead(301, {Location: location});
   } else {
     // Not found
     res.writeHead(200, {'Content-Type': 'application/json'});
