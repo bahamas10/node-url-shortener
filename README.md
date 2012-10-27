@@ -53,6 +53,11 @@ this is key-value file of path to URL.
 }
 ```
 
+Install
+-------
+
+    npm install -g url-shortener
+
 License
 -------
 
