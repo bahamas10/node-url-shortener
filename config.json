@@ -1,0 +1,10 @@
+{
+  "host": "localhost",
+  "port": 8090,
+  "uid":  null,
+  "gid":  null,
+  "urls": {
+    "github": "https://github.com",
+    "paste": "http://pastebin.com"
+  }
+}
