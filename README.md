@@ -7,15 +7,16 @@ Usage
 -----
 
 ### Terminal 1
-    $ cp config.json{.dist,}; cp urls.json{.dist,}
-    $ ./server.js
-    Server listening on localhost:8090
-    { paste: 'http://www.pastebin.com',
-      github: 'https://github.com' }
-    Request received /
-    Request received /paste
+
+    $ url-shortener
+    [2013-01-11T23:29:43.579Z] server listening on http://localhost:8090
+    { github: 'https://github.com', paste: 'http://pastebin.com' }
+    [2013-01-11T23:29:56.600Z] 127.0.0.1 GET 200 / (2ms)
+    [2013-01-11T23:29:59.214Z] 127.0.0.1 GET 301 /paste (1ms)
+
 
 ### Terminal 2
+
     $ curl -s localhost:8090 | json
     {
       "paste": "http://www.pastebin.com",
@@ -29,27 +30,20 @@ Usage
 Config
 ------
 
-There are 2 config files.  The first is `config.json`, and in there you define the host
-and port the server should listen on, and the URLs json file to use.  You can also include
-a uid/gid the process should run as after binding to the port. The second is `urls.json`, and
-this is key-value file of path to URL.
+pass the config file name as the first argument
 
 ### config.json
+
 ``` json
 {
   "host": "localhost",
   "port": 8090,
-  "urls": "./urls.json",
   "gid": null,
-  "uid": null
-}
-```
-
-### urls.json
-``` json
-{
-  "paste": "http://www.pastebin.com",
-  "github": "https://github.com"
+  "uid": null,
+  "urls": {
+    "paste": "http://www.pastebin.com",
+    "github": "https://github.com"
+  }
 }
 ```
 
