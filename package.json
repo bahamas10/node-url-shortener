@@ -1,7 +1,7 @@
 {
   "name": "url-shortener",
   "description": "Spawn up a simple webserver to act as a URL shortener ",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Dave Eddy <dave@daveeddy.com> (http://www.daveeddy.com)",
   "contributors": [],
   "repository": {
