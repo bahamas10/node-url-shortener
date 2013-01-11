@@ -1,7 +1,0 @@
-{
-  "host": "localhost",
-  "port": 8090,
-  "urls": "./urls.json",
-  "uid":  null,
-  "gid":  null
-}

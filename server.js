@@ -4,65 +4,41 @@
  *
  * Author: Dave Eddy <dave@daveeddy.com>
  * License: MIT
+ * Created: 6/5/2012
  */
 
-// Modules and constants
+require('log-timestamp');
+
 var http = require('http');
 var fs = require('fs');
-var config_file = './config.json';
 
-// Try to load the config file
-try {
-  var config = require(config_file);
-} catch (e) {
-  console.error('Error: file %s not found or unreadable! copy from %s.dist',
-      config_file, config_file);
-  process.exit(1);
-}
+var accesslog = require('access-log');
 
-// Try to load the URLs file
-try {
-  var urls = require(config.urls);
-} catch (e) {
-  console.error('Error: URLs file %s not found or unreadable! copy from %s',
-      config.urls, 'urls.json.dist');
-  process.exit(2);
-}
+var config = require(process.argv[2] || './config.json');
 
 // Create the server
 http.createServer(function (req, res) {
-  // Decorate
-  req.received_date = new Date();
-
-  // log when a response is a set (to get code and everything)
-  var res_end = res.end;
-  res.end = function() {
-    var delta = new Date() - req.received_date;
-    console.log('[%s] %s %s %s %s (%dms)',
-        new Date().toJSON(), req.connection.remoteAddress, req.method,
-        res.statusCode, req.url, delta);
-
-    // Now call the original
-    res_end.apply(res, arguments);
-  };
+  accesslog(req, res);
 
   // Grab the request and find the url
-  var url_key = req.url.substr(1);
-  var location = urls[url_key] || null;
+  var urlkey = req.url.substr(1);
+  var location = config.urls[urlkey];
 
-  if (location) {
-    // Redirect
+  if (req.url === '/') {
+    // index
+    res.write(JSON.stringify(config.urls));
+  } else if (location) {
+    // redirect
     res.writeHead(301, {Location: location});
   } else {
-    // Not found
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    res.write(JSON.stringify(urls));
+    // not found
+    res.statusCode = 404;
   }
   res.end();
 }).listen(config.port, config.host, function() {
   // Server running
-  console.log('Server listening on %s:%d', config.host, config.port);
-  console.dir(urls);
+  console.log('server listening on http://%s:%d', config.host, config.port);
+  console.dir(config.urls);
   if (config.gid) process.setgid(config.gid);
   if (config.uid) process.setuid(config.uid);
 });
