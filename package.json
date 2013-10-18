@@ -10,8 +10,8 @@
   },
   "scripts": {},
   "dependencies": {
-    "access-log": "~0.1.1",
-    "log-timestamp": "0.0.5"
+    "easyreq": "0.0.4",
+    "access-log": "~0.2.3"
   },
   "bin": {
     "url-shortener": "./server.js"

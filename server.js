@@ -7,17 +7,16 @@
  * Created: 6/5/2012
  */
 
-require('log-timestamp');
-
 var http = require('http');
-var fs = require('fs');
 
 var accesslog = require('access-log');
+var easyreq = require('easyreq');
 
 var config = require(process.argv[2] || './config.json');
 
 // Create the server
 http.createServer(function (req, res) {
+  easyreq(req, res);
   accesslog(req, res);
 
   // Grab the request and find the url
@@ -26,15 +25,14 @@ http.createServer(function (req, res) {
 
   if (req.url === '/') {
     // index
-    res.write(JSON.stringify(config.urls));
+    res.json(config.urls);
   } else if (location) {
     // redirect
-    res.writeHead(301, {Location: location});
+    res.redirect(location);
   } else {
     // not found
-    res.statusCode = 404;
+    res.notfound();
   }
-  res.end();
 }).listen(config.port, config.host, function() {
   // Server running
   console.log('server listening on http://%s:%d', config.host, config.port);
