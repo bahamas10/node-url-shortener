@@ -19,16 +19,13 @@ http.createServer(function (req, res) {
   easyreq(req, res);
   accesslog(req, res);
 
-  // Grab the request and find the url
-  var urlkey = req.url.substr(1);
-  var location = config.urls[urlkey];
-
+  var key = req.url.slice(1);
   if (req.url === '/') {
     // index
     res.json(config.urls);
-  } else if (location) {
+  } else if (config.urls.hasOwnProperty(key)) {
     // redirect
-    res.redirect(location);
+    res.redirect(config.urls[key]);
   } else {
     // not found
     res.notfound();
