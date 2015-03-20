@@ -40,12 +40,20 @@ pass the config file name as the first argument
   "port": 8090,
   "gid": null,
   "uid": null,
-  "urls": {
-    "paste": "http://www.pastebin.com",
-    "github": "https://github.com"
+  "domains": {
+    "google": {
+      "index": "http://google.com",
+      "maps": "http://maps.google.com",
+      "mail": "http://mail.google.com"
+    }
   }
 }
 ```
+
+Then use nginx/apache to do a passthrough to
+`localhost://domain`
+
+This allows multiple domain names to use the same shortener instance with seperate short urls.
 
 Install
 -------
