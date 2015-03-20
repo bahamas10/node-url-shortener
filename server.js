@@ -17,13 +17,13 @@ http.createServer(function (req, res) {
     easyreq(req, res);
     accesslog(req, res);
 
-    var key = req.url.slice(1).split('/', 2);
+    var key = req.url.slice(1).split('/');
     var reqDomain = key[0];
-    var reqKey = key[1];
+    var reqKey = key.join('/').substr(reqDomain.length + 1).replace(/(\/$|\/\/$|\/\/\/$)/, '');
 
-    console.log('key=' + key + '=');
-    console.log('reqDomain=' + reqDomain + '=');
-    console.log('reqUrl=' + reqKey + '=');
+    // console.log('key=' + key + '=');
+    // console.log('reqDomain=' + reqDomain + '=');
+    // console.log('reqUrl=' + reqKey + '=');
 
     if (req.url === '/') {
         res.setHeader('Content-Type', 'application/json');

@@ -7,7 +7,8 @@
     "google": {
       "index": "http://google.com",
       "maps": "http://maps.google.com",
-      "mail": "http://mail.google.com"
+      "mail": "http://mail.google.com",
+      "maps/la": "https://www.google.com/maps/place/Los+Angeles,+CA/@34.0204989,-118.4117325,10z/data=!3m1!4b1!4m2!3m1!1s0x80c2c75ddc27da13:0xe22fdf6f254608f4"
     },
     "microsoft": {
       "index": "http://microsoft.com",
