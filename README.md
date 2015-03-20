@@ -54,6 +54,8 @@ Then use nginx/apache to do a passthrough to
 `localhost://domain`
 
 This allows multiple domain names to use the same shortener instance with seperate short urls.
+Also adds a default/index page for each domain named "index"
+Eg. `localhost://google` will redirect to `http://google.com`
 
 Install
 -------
