@@ -21,9 +21,9 @@ http.createServer(function (req, res) {
     var reqDomain = key[0];
     var reqKey = key.join('/').substr(reqDomain.length + 1).replace(/(\/$|\/\/$|\/\/\/$)/, '');
 
-    // console.log('key=' + key + '=');
-    // console.log('reqDomain=' + reqDomain + '=');
-    // console.log('reqUrl=' + reqKey + '=');
+    console.log('key=' + key + '=');
+    console.log('reqDomain=' + reqDomain + '=');
+    console.log('reqUrl=' + reqKey + '=');
 
     if (req.url === '/') {
         res.setHeader('Content-Type', 'application/json');
@@ -35,9 +35,28 @@ http.createServer(function (req, res) {
         if (!reqKey) { // No key? Default to index
             reqKey = 'index';
         }
+
         // Check for subsite page key
         if (config.domains[reqDomain].hasOwnProperty(reqKey)) {
-            res.redirect(config.domains[reqDomain][reqKey]);
+            var target = config.domains[reqDomain][reqKey];
+            // see if target is an alias
+            if ((/^alias:/).test(target)) {
+                var aliasKey = target.replace(/^alias:/, '');
+                console.log('aliasKey=' + aliasKey);
+                if (config.domains[reqDomain].hasOwnProperty(aliasKey)) {
+                    target = config.domains[reqDomain][aliasKey];
+                    // Redirect alias
+                    res.redirect(target);
+                }
+                else {
+                    // Alias has no valid target
+                    res.end('ERROR: NO PAGE FROM ALIAS NAMED =' + reqKey + '= IN DOMAIN =' + reqDomain + '=', 404);
+                }
+            }
+            else {
+                // Redirect valid non-alias
+                res.redirect(target);
+            }
         }
         else {
             // Print out some info to help debug with end users.
