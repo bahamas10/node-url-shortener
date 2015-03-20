@@ -1,10 +1,17 @@
 {
   "host": "localhost",
   "port": 8090,
-  "uid":  null,
-  "gid":  null,
-  "urls": {
-    "github": "https://github.com",
-    "paste": "http://pastebin.com"
+  "uid": null,
+  "gid": null,
+  "domains": {
+    "google": {
+      "index": "http://google.com",
+      "maps": "http://maps.google.com",
+      "mail": "http://mail.google.com"
+    },
+    "microsoft": {
+      "index": "http://microsoft.com",
+      "msdn": "http://msdn.microsoft.com"
+    }
   }
 }
