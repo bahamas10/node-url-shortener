@@ -1,2 +1,8 @@
 node_modules
-.idea
+*.njsproj
+*sln.DotSettings.user
+*.DotSettings
+bin
+obj
+.ntvs_analysis.dat
+*.suo
