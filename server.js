@@ -16,7 +16,8 @@ var config = require(process.argv[2] || './config.json');
 http.createServer(function (req, res) {
     easyreq(req, res);
     accesslog(req, res);
-    console.log(req.url);
+    console.log("Host: " + req.host);
+    console.log("Hostname: " + req.hostname);
     var key = req.url.slice(1).split('/');
     var reqDomain = key[0];
     var reqKey = key.join('/').substr(reqDomain.length + 1).replace(/(\/$|\/\/$|\/\/\/$)/, '');
