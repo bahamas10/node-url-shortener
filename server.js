@@ -16,15 +16,15 @@ var config = require(process.argv[2] || './config.json');
 http.createServer(function (req, res) {
     easyreq(req, res);
     accesslog(req, res);
-
+    console.log(req.url);
     var key = req.url.slice(1).split('/');
     var reqDomain = key[0];
     var reqKey = key.join('/').substr(reqDomain.length + 1).replace(/(\/$|\/\/$|\/\/\/$)/, '');
-
+    /*
     console.log('key=' + key + '=');
     console.log('reqDomain=' + reqDomain + '=');
     console.log('reqUrl=' + reqKey + '=');
-
+    */
     if (req.url === '/') {
         res.setHeader('Content-Type', 'application/json');
         // Prettier than res.json() when using sub-objects.
