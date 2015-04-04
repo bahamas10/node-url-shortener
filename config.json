@@ -3,7 +3,7 @@
     "port": 8090,
     "uid": null,
     "gid": null,
-    "options": {
+    "config": {
         "use-default-host": true,
         "use-default-key": false,
         "use-default-host-for-root": false,
