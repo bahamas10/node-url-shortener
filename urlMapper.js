@@ -1,33 +1,54 @@
 var config = require(process.argv[2] || './config.json');
 
 exports.map = function(req, res) {
-    var matchFound = false;
+    // Config option key strings
+    var config_UseDefaultHost = 'use-default-host';
+    var useDefaultHost = true;
 
-    // Get the requested url without any forward slashes at the end.
+    var config_UseDefaultKey = 'use-default-key';
+    var useDefaultKey = false;
+
+    var config_UseDefaultHostForRoot = 'use-default-host-for-root';
+    var useDefaultHostForRoot = false;
+
+    var config_UseDefaultKeyForRoot = 'use-default-key-for-root';
+    var useDefaultKeyForRoot = false;
+
+    var config_DefaultKey = 'index';
+    var config_DefaultHost = 'default';
+    var config_Config = 'config';
 
     var key = req.params[0];
     var host = req.hostname;
-    var defaultKey = 'index';
-    var defaultHost = 'default';
     var url;
-    var useDefaultKey = false;
-    if (config.hasOwnProperty('default-key-on-fail')) {
-        useDefaultKey = config['default-key-on-fail'];
+
+    // Update config options
+    if (config.hasOwnProperty(config_Config)) {
+        if (config.hasOwnProperty(config_UseDefaultKey)) {
+            useDefaultKey = config[config_UseDefaultKey];
+        }
+        if (config.hasOwnProperty(config_UseDefaultKeyForRoot)) {
+            useDefaultKeyForRoot = config[config_UseDefaultKeyForRoot];
+        }
+        if (config.hasOwnProperty(config_UseDefaultHostForRoot)) {
+            useDefaultHostForRoot = config[config_UseDefaultHostForRoot];
+        }
+        if (config.hasOwnProperty(config_UseDefaultHost)) {
+            useDefaultHost = config[config_UseDefaultHost];
+        }
+        if (config.hasOwnProperty(config_UseDefaultHostKey)) {
+            useDefaultHostAndKey = config[config_UseDefaultHostKey];
+        }
     }
-    var useDefaultHost = false;
-    if (config.hasOwnProperty('default-host-on-fail')) {
-        useDefaultHost = config['default-host-on-fail'];
-    }
-    var useDefaultForEmpty = false;
-    if (config.hasOwnProperty('default-on-empty-request')) {
-        useDefaultForEmpty = config['default-on-empty-request'];
-    }
+
     // Check for null key
     if (key) {
         key = key.replace(/(\/$|\/\/$|\/\/\/$)/, ''); // remove trailing '/'
     } else {
-        key = defaultKey;
-        useDefaultKey = useDefaultForEmpty;
+        // Page requested on root
+        key = config_DefaultKey;
+        useDefaultKey = useDefaultKeyForRoot; // Use default key for empty (root)
+        useDefaultHost = useDefaultHostForRoot; // Use default host for empty (root)
     }
     // Check key as requested
     if (keyExists(host, key)) {
@@ -35,18 +56,18 @@ exports.map = function(req, res) {
         res.redirect(url);
     }
     // Try for requested key on default host
-    else if (keyExists(defaultHost, key) && useDefaultHost) {
-        url = getUrl(defaultHost, key);
+    else if (keyExists(config_DefaultHost, key) && useDefaultHost) {
+        url = getUrl(config_DefaultHost, key);
         res.redirect(url);
     }
     // Try for default key on requested host
-    else if (keyExists(host, defaultKey) && useDefaultKey) {
-        url = getUrl(host, defaultKey);
+    else if (keyExists(host, config_DefaultKey) && useDefaultKey) {
+        url = getUrl(host, config_DefaultKey);
         res.redirect(url);
     }
     // Try for default key on default host
-    else if (keyExists(defaultHost, defaultKey) && useDefaultHost && useDefaultKey) {
-        url = getUrl(defaultHost, defaultKey);
+    else if (keyExists(config_DefaultHost, config_DefaultKey) && useDefaultHost && useDefaultKey) {
+        url = getUrl(config_DefaultHost, config_DefaultKey);
         res.redirect(url);
     }
     // Respond with error message

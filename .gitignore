@@ -7,3 +7,4 @@ obj
 .ntvs_analysis.dat
 *.suo
 *.sln
+_ReSharper*

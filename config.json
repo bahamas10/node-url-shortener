@@ -3,9 +3,12 @@
     "port": 8090,
     "uid": null,
     "gid": null,
-    "default-key-on-fail": false,
-    "default-host-on-fail": true,
-    "default-on-empty-request":  true,
+    "options": {
+        "use-default-host": true,
+        "use-default-key": false,
+        "use-default-host-for-root": false,
+        "use-default-key-for-root":  false
+    },
     "urls": {
         "default": {
             "hello": "http://twitch.tv",
