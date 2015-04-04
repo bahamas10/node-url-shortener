@@ -7,7 +7,9 @@
         "use-default-host": true,
         "use-default-key": false,
         "use-default-host-for-root": false,
-        "use-default-key-for-root":  false
+        "use-default-key-for-root": false,
+        "enable-url-list": true,
+        "url-list-path":  "/_"
     },
     "urls": {
         "default": {

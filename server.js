@@ -3,6 +3,23 @@ var urlMapper = require("./urlMapper");
 var app = express();
 var config = require(process.argv[2] || './config.json');
 
+var config_EnableUrlList = 'enable-url-list';
+var enableUrlList = true;
+var config_UrlListPath = 'url-list-path';
+var urlListPath = '/_';
+var config_Config = 'config';
+if (config.hasOwnProperty(config_Config)) {
+    if (config.hasOwnProperty(config_EnableUrlList)) {
+        enableUrlList = config[config_EnableUrlList];
+    }
+    if (config.hasOwnProperty(config_UrlListPath)) {
+        urlListPath = config[config_UrlListPath];
+        if (urlListPath[0] != '/') {
+            urlListPath = '/' + urlListPath;
+        }
+    }
+}
+
 // Add url
 app.get('/add', function (req, res) {
     // TODO
@@ -14,8 +31,10 @@ app.get('/del', function (req, res) {
     res.send("del");
 });
 // List urls
-app.get('/urllist', function (req, res) {
-    sendUrls(res);
+app.get(urlListPath, function (req, res) {
+    if (enableUrlList) {
+        sendUrls(res);
+    }
 });
 // Route all others to urlMapper
 app.get('/*', function (req, res) {
