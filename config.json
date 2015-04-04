@@ -1,10 +1,27 @@
 {
-  "host": "localhost",
-  "port": 8090,
-  "uid":  null,
-  "gid":  null,
-  "urls": {
-    "github": "https://github.com",
-    "paste": "http://pastebin.com"
-  }
+    "host": "localhost",
+    "port": 8090,
+    "uid": null,
+    "gid": null,
+    "config": {
+        "use-default-host": true,
+        "use-default-key": false,
+        "use-default-host-for-root": false,
+        "use-default-key-for-root": false,
+        "enable-url-list": true,
+        "url-list-path":  "/_"
+    },
+    "urls": {
+        "default": {
+            "hello": "http://twitch.tv",
+            "blah": "http://zoho.com"
+        },
+        "localhost": {
+            "index": "http://google.com",
+            "maps": "http://maps.google.com",
+            "mail": "http://mail.google.com",
+            "maps/la": "https://www.google.com/maps/place/Los+Angeles,+CA/@34.0204989,-118.4117325,10z/data=!3m1!4b1!4m2!3m1!1s0x80c2c75ddc27da13:0xe22fdf6f254608f4",
+            "gmail": "alias:mail"
+        }
+    }
 }

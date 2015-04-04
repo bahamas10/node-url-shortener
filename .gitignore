@@ -1,1 +1,10 @@
 node_modules
+*.njsproj
+*sln.DotSettings.user
+*.DotSettings
+bin
+obj
+.ntvs_analysis.dat
+*.suo
+*.sln
+_ReSharper*

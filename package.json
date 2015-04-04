@@ -10,8 +10,7 @@
   },
   "scripts": {},
   "dependencies": {
-    "easyreq": "~0.0.4",
-    "access-log": "~0.2.3"
+    "express": "^4.12.3"
   },
   "bin": {
     "url-shortener": "./server.js"
