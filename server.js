@@ -7,12 +7,15 @@
  * Created: 6/5/2012
  */
 
+var fs = require('fs');
 var http = require('http');
+var path = require('path');
 
 var accesslog = require('access-log');
 var easyreq = require('easyreq');
 
-var config = require(process.argv[2] || './config.json');
+var configfile = process.argv[2] || path.join(__dirname, 'config.json');
+var config = JSON.parse(fs.readFileSync(configfile, 'utf8'));
 
 // Create the server
 http.createServer(function (req, res) {
@@ -22,7 +25,7 @@ http.createServer(function (req, res) {
   var key = req.url.slice(1);
   if (req.url === '/') {
     // index
-    res.json(config.urls);
+    res.json(config.urls, 200, true);
   } else if (config.urls.hasOwnProperty(key)) {
     // redirect
     res.redirect(config.urls[key]);
